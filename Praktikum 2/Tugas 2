@@ -1,0 +1,93 @@
+class Robot:
+    def __init__(self, name, hp, serangan):
+        self.name = name
+        self.max_hp = 170  
+        self.max_attack = 40  
+        self.hp = hp
+        self.serangan = serangan
+        self.bertahan = False
+    
+    def attack(self, other):
+        if self.serangan > 0:
+            if other.bertahan:
+                serangan_musuh = self.serangan * 0.88
+                other.hp -= serangan_musuh
+                print(f"{other.name} melakukan defense dan menerima damage sebesar {serangan_musuh}")
+                other.bertahan = False
+            else:
+                other.hp -= self.serangan
+                print(f"{self.name} menyerang {other.name} dan memberikan damage sebesar {self.serangan}")
+        if other.hp <= 0:
+            other.hp = 0
+            print(f"{other.name} kalah dalam pertarungan")
+    
+    def defense(self):
+        self.bertahan = True
+        print(f"{self.name} melakukan pertahanan")
+    
+    def give_up(self):
+        self.hp = 0
+        print(f"{self.name} telah menyerah, lawan memenangkan pertandingan")
+
+    def heal(self):
+        heal_amount = self.hp * 0.05
+        self.hp += heal_amount
+        if self.hp > self.max_hp:
+            self.hp = self.max_hp  
+        print(f"{self.name} melakukan heal sebanyak {heal_amount}")
+
+
+class Gameplay:
+    def __init__(self):
+        self.ronde_sekarang = 0
+        self.max_rounds = 40
+
+    def next_round(self):
+        self.ronde_sekarang += 1
+        if self.ronde_sekarang > self.max_rounds:
+            print("Maksimal ronde tercapai. Permainan Berakhir!")
+            return False
+        print(f"Ronde ke-{self.ronde_sekarang} ==========================================================")
+        return self.ronde_sekarang
+
+
+jumlah_pemain = 2
+pemain = []
+print("Maximum Pemain adalah 2, maksimal ronde adalah 40\n")
+for _ in range(jumlah_pemain):
+    nama = input("Masukkan nama pemain: ")
+    hp = int(input(f"Masukkan HP untuk {nama} (maksimal 170): "))
+    if hp > 170 or hp == 0:
+        print("HP yang diinput tidak sah")
+        hp = 170
+    attack = int(input(f"Masukkan attack untuk {nama} (maksimal 40): "))
+    if attack > 40 or attack == 0:
+        print("Attack yang diinput tidak sah")
+        attack = 40
+    pemain.append(Robot(nama, hp, attack))
+
+games = Gameplay()
+while True:
+    round_num = games.next_round()
+    for player in pemain:
+        print(f"{player.name} [{player.hp}|{player.serangan}]")
+    
+    for pemain_sekarang in pemain:
+        lawan = pemain[(pemain.index(pemain_sekarang) + 1) % jumlah_pemain]
+        print(f"\n1. Attack     2. Defense     3. Giveup    4. Heal")
+        pilihan = int(input(f"{pemain_sekarang.name}, pilih aksi: "))
+    
+        if pilihan == 1:
+            pemain_sekarang.attack(lawan)
+        elif pilihan == 2:
+            pemain_sekarang.defense()
+        elif pilihan == 3:
+            pemain_sekarang.give_up()
+            print("Permainan Berakhir")
+            exit()
+        elif pilihan == 4:
+            pemain_sekarang.heal()
+    
+        if lawan.hp == 0:
+            print("Permainan Berakhir")
+            exit()
