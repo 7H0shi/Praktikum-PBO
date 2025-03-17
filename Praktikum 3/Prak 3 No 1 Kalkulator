@@ -1,0 +1,46 @@
+import math
+
+class Kalkulator:
+    def __init__(self, nilai):
+        self.nilai = nilai
+
+    def __add__(self, other):
+        return Kalkulator(self.nilai + other.nilai)
+    
+    def __sub__(self, other):
+        return Kalkulator(self.nilai - other.nilai)
+
+    def __mul__(self, other):
+        return Kalkulator(self.nilai * other.nilai)
+    
+    def __truediv__(self, other):
+        if other.nilai != 0:
+            return Kalkulator(self.nilai / other.nilai)
+        else:
+            print(f"Pembagian dengan nol tidak diperbolehkan! Nilai kedua adalah {other.nilai}.")
+            return None
+
+    def __pow__(self, other):
+        return Kalkulator(self.nilai ** other.nilai)
+    
+    def log(self, base=10):
+        if self.nilai > 0:
+            return math.log10(self.nilai)
+        else:
+            print(f"Logaritma tidak bisa bernilai negatif")
+    
+    def __repr__(self):
+        return f"{self.nilai}"
+
+nilai_a = float(input("nilai a = "))
+nilai_b = float(input("nilai b = "))
+
+a = Kalkulator(nilai_a)
+b = Kalkulator(nilai_b)
+
+print("Penjumlahan:", a + b)
+print("Pengurangan:", a - b)
+print("Perkalian:", a * b)
+print("Pembagian:", a / b)
+print("Eksponen:", a ** b)
+print("Logaritma basis 10(a):", a.log())
