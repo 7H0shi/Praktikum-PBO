@@ -1,0 +1,50 @@
+import random
+
+class Father:
+    def __init__(self, darah):
+        self.darah = darah
+
+class Mother:
+    def __init__(self, darah):
+        self.darah = darah
+
+class Child:
+    def __init__ (self, Father, Mother):
+        self.darah = self.pewarisan_darah(Father.darah, Mother.darah)
+
+    def pewarisan_darah(self, darah_ayah, darah_ibu):
+
+        alel_father = random.choice(darah_ayah)
+        
+        alel_mother = random.choice(darah_ibu)
+
+        if (alel_father == 'A' and alel_mother == 'B') or (alel_father == 'B' and alel_mother == 'A'):
+            keluaran = ['A', 'B', 'AB', 'O']
+            return random.choice(keluaran)
+        elif (alel_father == 'A' and alel_mother == 'A'):
+            keluaran = ['A', 'O']
+            return random.choice(keluaran)
+        elif (alel_father == 'B' and alel_mother == 'B'):
+            keluaran = ['B', 'O']
+            return random.choice(keluaran)
+        elif (alel_father == 'O' and alel_mother == 'O'):
+            keluaran = 'O'
+            return keluaran
+        elif (alel_father == 'AB' and alel_mother == 'O') or (alel_mother == 'AB' and alel_father == 'O'):
+            keluaran = ['A', 'B']
+            return random.choice(keluaran)
+        elif (alel_father == 'A' and alel_mother == 'O') or (alel_mother == 'A' and alel_father == 'O'):
+            keluaran = ['A', 'O']
+            return random.choice(keluaran)
+        elif (alel_father == 'B' and alel_mother == 'O') or (alel_mother == 'B' and alel_father == 'O'):
+            keluaran = ['B', 'O']
+            return random.choice(keluaran)
+    
+tipe_darah_ayah = str(input("Masukkan golongan darah ayah: "))
+tipe_darah_ibu = str(input("Masukkan golongan darah ibu: "))
+
+ayah = Father(tipe_darah_ayah)
+ibu = Mother(tipe_darah_ibu)
+
+anak = Child(ayah, ibu) 
+print(f"Golongan darah anak (hasil simulasi): {anak.darah}")
