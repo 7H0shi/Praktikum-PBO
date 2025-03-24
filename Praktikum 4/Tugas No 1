@@ -1,0 +1,19 @@
+class hitung:
+    def __init__(self, angka):
+        self.angka = angka
+
+    def akar(self):
+        self.hasil = self.angka ** 0.5
+        return self.hasil
+
+try:
+    angka = int(input("Masukkan angka: "))
+    if angka > 0:
+        kuadrat = hitung(angka)
+        hasil = kuadrat.akar()
+        print(f"Hasil akar kuadrat dari {angka} adalah {hasil}")
+    else:
+        print("Angka tidak boleh nol atau negatif")
+
+except ValueError:
+    print("Input tidak valid, silahkan input ulang!")
