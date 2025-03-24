@@ -1,0 +1,55 @@
+class Animal:
+    def __init__(self, name, jenis, usia):
+        if not name:
+            raise ValueError ("Nama tidak boleh kosong")
+        self.__name = name
+        if not jenis:
+            raise ValueError ("Jenis tidak boleh kosong")
+        self.__jenis = jenis
+        if usia <= 0:
+            raise ValueError ("Usia tidak boleh kurang dari sama dengan 0")
+        self.__usia = usia
+
+    def bersuara(self):
+        pass
+
+    def informasi(self):
+        print(f"Jenis hewan: {self.__jenis} \nNama hewan: {self.__name} \nUsia hewan: {self.__usia} tahun")
+
+class wolf(Animal):
+    def __init__(self, name, jenis, usia):
+        super().__init__(name, jenis, usia)
+
+    def bersuara(self):
+        print("Woof woof woof!")
+    
+class lion(Animal): 
+    def __init__(self, name, jenis, usia):
+        super().__init__(name, jenis, usia)
+
+    def bersuara(self):
+        print("ROAAAAAAAAAAARRRRRRRRRR!")
+    
+class rhino(Animal):
+    def __init__(self, name, jenis, usia):
+        super().__init__(name, jenis, usia)
+
+    def bersuara(self):
+        print("Hrrrrnkkkkkk!")
+    
+def make_sound(hewan):
+    hewan.bersuara()
+
+try:
+    serigala = wolf("Rocky", "Gray Wolf", 10)
+    singa = lion("Gary", "White Lion", 9)
+    badak = rhino("Smoke", "One-horned rhino", 11)
+
+    make_sound(badak)
+    make_sound(singa)
+    make_sound(serigala)
+
+    serigala.informasi()
+
+except ValueError as n:
+    print(f"Terdapat kesalahan input: {n}")
