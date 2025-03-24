@@ -1,0 +1,54 @@
+class to_do:
+    def __init__(self):
+        self.tasks = []
+
+    def tambah_tugas(self, tugas):
+        self.tasks.append(tugas)
+        print(f"{tugas} telah ditambahkan ke dalam to-do-list")
+
+    def lihat_tugas(self):
+        if not self.tasks:
+            print(f"To-do-list kosong, silahkan menambahkan list")
+        else:
+            print(f"Isi to-do-list: ")
+            for i in range(len(self.tasks)):
+                print(f"{i + 1}. {self.tasks[i]}")
+
+    def hapus_tugas(self, index_tugas):
+        if 0 < index_tugas <= len(self.tasks):
+            hapus_task = self.tasks.pop(index_tugas - 1)
+            print(f"{hapus_task} telah dihapus")
+        else:
+            print(f"Input tidak valid")
+
+todo = to_do()
+
+while True:
+    print("\nMenu To-Do List:")
+    print("1. Tambahkan Tugas") 
+    print("2. Lihat Tugas")
+    print("3. Hapus Tugas")
+    print("4. Keluar")
+
+    try:
+        pilihan = int(input("Masukkan pilihan: "))
+    except ValueError:
+        print("Piliham tidak valid, input kembali")
+        continue
+
+    if pilihan == 1:
+        tugas = input("Masukkan tugas: ")
+        todo.tambah_tugas(tugas)
+    elif pilihan == 2:
+        todo.lihat_tugas()
+    elif pilihan == 3:
+        try:
+            index_tugas = int(input("Masukkan nomor tugas yang ingin dihapus: "))
+            todo.hapus_tugas(index_tugas)
+        except ValueError:
+            print("Silakan masukkan angka yang valid.")
+    elif pilihan == 4:
+        print("Menghentikan program")
+        break
+    else:
+        print("Pilihan tidak valid, input kembali")
